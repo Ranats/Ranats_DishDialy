@@ -19,6 +19,10 @@ before do
     config.access_token = ENV['ACCESS_TOKEN']
     config.access_token_secret = ENV['ACCESS_TOKEN_SECRET']
   end
+
+  client.user_timeline("Ranats85").each do |tweet|
+    p tweet.text
+  end
 end
 
 get "/" do
