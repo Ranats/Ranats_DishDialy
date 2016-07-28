@@ -1,5 +1,5 @@
 <%= #"<img src=\"#{@src}\">" %>
 
-<%= @tweet.each do |line| %>
-<%= puts line.text %>
-<%= end %>
+<% @tweet.each do |line| %>
+<%= line.text %>
+<% end %>
