@@ -29,23 +29,16 @@ end
 client = nil
 
 before do
-
   client = Twitter::REST::Client.new do |config|
     config.consumer_key = ENV['CONSUMER_KEY']
     config.consumer_secret = ENV['CONSUMER_SECRET']
   end
-
-#  client.home_timeline.each do |tw|
-#    puts tw.text
-#  end
-#  client.user_timeline("Ranats85").each do |tweet|
-#    p tweet.text
-#  end
 end
 
 get "/" do
 
-  @tweet = client.user_timeline("Ranats85")
-  @src = "http://fujifilm.jp/personal/digitalcamera/x/fujinon_lens_xf16mmf14_r_wr/sample_images/img/index/ff_xf16mmf14_r_wr_004.JPG"
+  query = "ｳﾎ"
+  since_id = nil#dbから同期
+  @result_tweets = client.search(query, count: 100, result_type: "recent", from: "Ranats85", since_id: since_id)
   erb :index
 end
