@@ -2,6 +2,10 @@ require 'rubygems'
 require 'sinatra'
 require 'erb'
 
+configure do
+  set :protection, except: [:frame_options]
+end
+
 get "/" do
   "Hello world!"
 
