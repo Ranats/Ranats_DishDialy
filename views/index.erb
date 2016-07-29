@@ -1,4 +1,8 @@
-<% @result_tweets.each do |line| %>
-<%= line.full_text %>
+<% @result_tweets.each do |tweet| %>
+    <blockquote class="twitter-tweet" data-partner="tweetdeck">
+      <%= "<a href=\"#{tweet.url}\"/>" %>
+    </blockquote>
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 <br>
 <% end %>
+

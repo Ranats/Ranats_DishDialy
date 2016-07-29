@@ -14,6 +14,7 @@ module Twitter
       hash[:since_id] = since_id unless since_id.zero?
       hash
     end
+
   end
 end
 
@@ -21,24 +22,31 @@ configure do
   set :protection, except: [:frame_options]
 end
 
-# ハッシュタグで検索
-# ツイートURLを保持？
-# URLが同一な場合は追加しない．
-# DBからViewを作成
-
-client = nil
-
 before do
-  client = Twitter::REST::Client.new do |config|
+  $client = Twitter::REST::Client.new do |config|
     config.consumer_key = ENV['CONSUMER_KEY']
     config.consumer_secret = ENV['CONSUMER_SECRET']
   end
 end
 
 get "/" do
+  query = params['query']
+  p query
+  since_id = 600052234543013889#dbから同期 このid以降のツイートを取得
+  @result_tweets = []
+    begin
+      tmp_result = $client.search(query, count: 100, from: "Ranats85", since_id: since_id)
+      @result_tweets += tmp_result.to_a unless tmp_result.first.nil?
+      break if @result_tweets.length > 100
+    rescue Twitter::Error::TooManyRequests => error
+      p error.rate_limit.reset_in
+      sleep error.rate_limit.reset_in
+      retry
+    end
 
-  query = "ｳﾎ"
-  since_id = nil#dbから同期
-  @result_tweets = client.search(query, count: 100, result_type: "recent", from: "Ranats85", since_id: since_id)
+  i = 0
+  @result_tweets.each do |tweet|
+    p tweet.id
+  end
   erb :index
 end
