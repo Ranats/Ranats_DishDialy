@@ -3,9 +3,9 @@ require 'sinatra'
 require 'erb'
 require 'twitter'
 
-require 'pg'
+  require 'pg'
+#  require 'sqlite3'
 
-#require 'sqlite3'
 require 'active_record'
 
 ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'] || 'sqlite3://localhost/myapp.db')
