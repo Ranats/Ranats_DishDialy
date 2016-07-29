@@ -59,15 +59,3 @@ get "/" do
   end
   erb :index
 end
-
-def get_db
-  # データベース接続する（不要なものは指定しなくても良い。:port は標準で 5432 が使用される模様）
-  connection = PG::connect(:host => "ec2-54-221-225-242.compute-1.amazonaws.com", :user => "ulaavxhenbeujh", :password => "4Sl_y8buoOnK3KUlbTFzvAHEvR", :dbname => "d9b8ovno771471")
-  begin
-    # connection を使い PostgreSQL を操作する
-    # ...
-  ensure
-    # データベースへのコネクションを切断する
-    connection.finish
-  end
-end

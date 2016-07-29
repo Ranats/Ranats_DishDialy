@@ -1,6 +1,0 @@
-development:
-  adapter: sqlite3
-  database: myapp.db
-production:
-  adapter: postgresql
-  database: myapp
