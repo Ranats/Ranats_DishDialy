@@ -1,1 +1,4 @@
-<%= "<img src=\"#{@src}\">" %>
+<% @result_tweets.each do |line| %>
+<%= line.full_text %>
+<br>
+<% end %>
